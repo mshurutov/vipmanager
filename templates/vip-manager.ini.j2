@@ -1,14 +1,8 @@
 # File {{ vipmanager_config_file  }} is managed by ansible
 # You do not edit manually!
-{% if vipmanager_params.comment is defined %}
-{{ vipmanager_params.comment }}
-{% endif %}
 {% for param in vipmanager_params %}
-{% if param.name != "comment" and param.name != "{{ vipmanager_endpoints_name }}" %}
-{% if param.comment is defined %}
-{{ param.comment }}
-{% endif %}
+{% if param.name != "{{ vipmanager_endpoints_name }}" %}
 {{ param.name }}={{ param.value }}
 {% endif %}
-{{ vipmanager_endpoints_name }}={% for eh in groups[postgres_dcs_groups] %}{{ hostvars[eh]['common_ip4_default'] }}:{{ etcd_client_port }}{% if not loop.last %},{% endif %}{% endfor %}
 {% endfor %}
+{{ vipmanager_endpoints_name }}={% for eh in groups[postgres_dcs_groups] %}http://{{ hostvars[eh]['common_ip4_default'] }}:{{ etcd_client_port }}{% if not loop.last %},{% endif %}{% endfor %}

@@ -15,7 +15,7 @@ vipmanager_config_file_type: "ini"
 # Params name and it values is getting from git:
 #   https://github.com/cybertec-postgresql/vip-manager
 vipmanager_endpoints_name: "dcs-endpoints"
-vipmanager_params: {}
+vipmanager_params: []
 #- name: "ip"
 #  valiue: "10.10.10.123"
 #- name: "netmask: 24
