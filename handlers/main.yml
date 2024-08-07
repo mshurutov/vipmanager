@@ -1,0 +1,6 @@
+---
+# handlers file for vipmanager
+- name: vipmanager restart
+  ansible.builtin.service:
+    name: "{{ vipmanager_service_name }}"
+    state: restarted

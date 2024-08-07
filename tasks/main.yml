@@ -1,0 +1,38 @@
+---
+# tasks file for vipmanager
+# Install vip-manager
+- name: install vip-manager
+  block:
+  - name: update cache before install
+    block:
+    - name: update cache on Deb
+      ansible.builtin.apt:
+        update_cache: true
+      when: ansible_pkg_mgr == "apt"
+    - name: update cache on Alt
+      community.general.apt_rpm:
+        update_cache: true
+      when: ansible_pkg_mgr == "apt_rpm"
+  - name: install packages
+    ansible.builtin.package:
+      name: "{{ item }}"
+      state: present
+    loop: "{{ vipmanager_packages }}"
+  tags: vipmanager_install
+
+- name: set kernel parameters
+  ansible.posix.sysctl:
+    name: "{{ item.name }}"
+    value: "{{ item.value }}"
+    sysctl_set: true
+    state: present
+  loop: "{{ vipmanager_sysctl }}"
+  when: vipmanager_sysctl is defined and vipmanager_sysctl | length > 0
+  tags: vipmanager_kernel_config
+
+- name: configure vip-manager
+  ansible.builtin.template:
+    dest: "{{ vipmanager_config_file }}"
+    src: "{{ vipmanager_templates_dir }}/vip-manager.{{ vipmanager_cinfig_file_type }}.j2"
+  notify: vipmanager restart
+  tags: vipmanager_config
