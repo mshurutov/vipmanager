@@ -33,6 +33,6 @@
 - name: configure vip-manager
   ansible.builtin.template:
     dest: "{{ vipmanager_config_file }}"
-    src: "{{ vipmanager_templates_dir }}/vip-manager.{{ vipmanager_cinfig_file_type }}.j2"
+    src: "{{ vipmanager_templates_dir }}/vip-manager.{{ vipmanager_config_file_type }}.j2"
   notify: vipmanager restart
   tags: vipmanager_config

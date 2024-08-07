@@ -11,7 +11,7 @@ vipmanager_service_name: "vip-manager.service"
 #  value: 1
 vipmanager_config_dir: ""
 vipmanager_config_file: ""
-vipmanager_cinfig_file_type: "ini"
+vipmanager_config_file_type: "ini"
 # Params name and it values is getting from git:
 #   https://github.com/cybertec-postgresql/vip-manager
 vipmanager_endpoints_name: "dcs-endpoints"
