@@ -4,11 +4,11 @@ vipmanager_files_dir: "{{ role_path }}/files"
 vipmanager_templates_dir: "{{ role_path }}/templates"
 vipmanager_vars_dir: "{{ role_path }}/vars"
 vipmanager_packages:
-- "vip-manager"
+  - "vip-manager"
 vipmanager_service_name: "vip-manager.service"
-#vipmanager_sysctl:
-#- name: "net.ipv4.ip_nonlocal_bind"
-#  value: 1
+# vipmanager_sysctl:
+#   - name: "net.ipv4.ip_nonlocal_bind"
+#     value: 1
 vipmanager_config_dir: ""
 vipmanager_config_file: ""
 vipmanager_config_file_type: "ini"
@@ -16,36 +16,36 @@ vipmanager_config_file_type: "ini"
 #   https://github.com/cybertec-postgresql/vip-manager
 vipmanager_endpoints_name: "dcs-endpoints"
 vipmanager_params: []
-#- name: "ip"
-#  valiue: "10.10.10.123"
-#- name: "netmask: 24
-#- name: "interface"
-#  value: "eth0"
-#- name: "trigger-key"
-#  value: "{{ etcd_service_name | default('service') }}/{{ patroni_scope_name }}/leader"
-#- name: "trigger-value"
-#  value: "{{ common_short_hostname }}"
-#- name: "manager-type"
-#  value: "basic"
-#- name: "dcs-type"
-#  value: "etcd"
-#- name: "etcd-user"
-#  value: "patroni"
-#- name: "etcd-password"
-#  value: "snakeoil"
-#- name: "consul-token"
-#  value: "snakeoil"
-#- name: "interval"
-#  value: 1000
-#- name: "retry-after"
-#  value: 250
-#- name: "retry-num"
-#  value: 3
-#- name: "etcd-ca-file"
-#  value: "{{ common_ssl_CA }}"
-#- name: "etcd-cert-file"
-#  value: "{{ vipmanager_etcd_cert }}"
-#- name: "etcd-key-file"
-#  value: "{{ vipmanager_etcd_key }}"
-#- name: "verbose"
-#  value: false
+#  - name: "ip"
+#    valiue: "10.10.10.123"
+#  - name: "netmask: 24
+#  - name: "interface"
+#    value: "eth0"
+#  - name: "trigger-key"
+#    value: "{{ etcd_service_name | default('service') }}/{{ patroni_scope_name }}/leader"
+#  - name: "trigger-value"
+#    value: "{{ common_short_hostname }}"
+#  - name: "manager-type"
+#    value: "basic"
+#  - name: "dcs-type"
+#    value: "etcd"
+#  - name: "etcd-user"
+#    value: "patroni"
+#  - name: "etcd-password"
+#    value: "snakeoil"
+#  - name: "consul-token"
+#    value: "snakeoil"
+#  - name: "interval"
+#    value: 1000
+#  - name: "retry-after"
+#    value: 250
+#  - name: "retry-num"
+#    value: 3
+#  - name: "etcd-ca-file"
+#    value: "{{ common_ssl_CA }}"
+#  - name: "etcd-cert-file"
+#    value: "{{ vipmanager_etcd_cert }}"
+#  - name: "etcd-key-file"
+#    value: "{{ vipmanager_etcd_key }}"
+#  - name: "verbose"
+#    value: false

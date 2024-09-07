@@ -11,26 +11,26 @@
 
 # tasks file for vipmanager
 # Install vip-manager
-- name: install vip-manager
-  block:
-  - name: update cache before install
-    block:
-    - name: update cache on Deb
-      ansible.builtin.apt:
-        update_cache: true
-      when: ansible_pkg_mgr == "apt"
-    - name: update cache on Alt
-      community.general.apt_rpm:
-        update_cache: true
-      when: ansible_pkg_mgr == "apt_rpm"
-  - name: install packages
-    ansible.builtin.package:
-      name: "{{ item }}"
-      state: present
-    loop: "{{ vipmanager_packages }}"
+- name: Install vip-manager
   tags: vipmanager_install
+  block:
+    - name: Update cache before install
+      block:
+        - name: Update cache on Deb
+          ansible.builtin.apt:
+            update_cache: true
+          when: ansible_pkg_mgr == "apt"
+        - name: Update cache on Alt
+          community.general.apt_rpm:
+            update_cache: true
+          when: ansible_pkg_mgr == "apt_rpm"
+    - name: Install packages
+      ansible.builtin.package:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ vipmanager_packages }}"
 
-- name: set kernel parameters
+- name: Set kernel parameters
   ansible.posix.sysctl:
     name: "{{ item.name }}"
     value: "{{ item.value }}"
@@ -40,9 +40,10 @@
   when: vipmanager_sysctl is defined and vipmanager_sysctl | length > 0
   tags: vipmanager_kernel_config
 
-- name: configure vip-manager
+- name: Configure vip-manager
   ansible.builtin.template:
     dest: "{{ vipmanager_config_file }}"
     src: "{{ vipmanager_templates_dir }}/vip-manager.{{ vipmanager_config_file_type }}.j2"
-  notify: vipmanager restart
+    mode: "0644"
+  notify: Vipmanager restart
   tags: vipmanager_config
