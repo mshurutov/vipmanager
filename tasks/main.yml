@@ -25,10 +25,19 @@
             update_cache: true
           when: ansible_pkg_mgr == "apt_rpm"
     - name: Install packages
-      ansible.builtin.package:
-        name: "{{ item }}"
-        state: present
-      loop: "{{ vipmanager_packages }}"
+      block:
+        - name: Install packages on non Alt Linux system
+          when: ansible_pkg_mgr != "apt_rpm"
+          ansible.builtin.package:
+            name: "{{ item }}"
+            state: present
+          loop: "{{ vipmanager_packages }}"
+        - name: Install packages on non Alt Linux system
+          when: ansible_pkg_mgr == "apt_rpm"
+          ansible.builtin.package:
+            name: "{{ item }}"
+            state: "present_not_latest"
+          loop: "{{ vipmanager_packages }}"
 
 - name: Set kernel parameters
   ansible.posix.sysctl:
